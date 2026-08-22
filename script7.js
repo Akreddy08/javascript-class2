@@ -82,13 +82,11 @@ let employees = [
 ];
 
 
-// =====================================================
 // 1. DISPLAY ALL EMPLOYEES
-// =====================================================
 
 function displayEmployees(employeeList = employees) {
 
-    console.log("========== ALL EMPLOYEES ==========");
+    console.log("ALL EMPLOYEES");
 
     employeeList.forEach(function(employee) {
 
@@ -106,9 +104,7 @@ function displayEmployees(employeeList = employees) {
 displayEmployees();
 
 
-// =====================================================
 // 2. FIND EMPLOYEES WITH SALARY > ₹40,000
-// =====================================================
 
 function filterHighSalaryEmployees() {
 
@@ -118,7 +114,7 @@ function filterHighSalaryEmployees() {
 
     });
 
-    console.log("========== SALARY ABOVE ₹40,000 ==========");
+    console.log("SALARY ABOVE ₹40,000");
 
     console.log(result);
 }
@@ -126,9 +122,7 @@ function filterHighSalaryEmployees() {
 filterHighSalaryEmployees();
 
 
-// =====================================================
 // 3. FIND PARTICULAR EMPLOYEE USING ID
-// =====================================================
 
 function searchEmployee(id) {
 
@@ -140,7 +134,7 @@ function searchEmployee(id) {
 
     if (employee) {
 
-        console.log("========== EMPLOYEE FOUND ==========");
+        console.log("EMPLOYEE FOUND");
         console.log(employee);
 
     } else {
@@ -155,9 +149,7 @@ function searchEmployee(id) {
 searchEmployee(103);
 
 
-// =====================================================
 // 4. CALCULATE TOTAL SALARY
-// =====================================================
 
 function calculateTotalSalary() {
 
@@ -175,9 +167,7 @@ function calculateTotalSalary() {
 calculateTotalSalary();
 
 
-// =====================================================
 // 5. CHECK SALARY ABOVE ₹1,00,000
-// =====================================================
 
 let salaryAboveOneLakh = employees.some(function(employee) {
 
@@ -191,9 +181,7 @@ console.log(
 );
 
 
-// =====================================================
 // 6. CHECK EXPERIENCE
-// =====================================================
 
 let allHaveExperience = employees.every(function(employee) {
 
@@ -207,10 +195,8 @@ console.log(
 );
 
 
-// =====================================================
 // 7. SORT EMPLOYEES BY SALARY
 // HIGHEST → LOWEST
-// =====================================================
 
 // Spread creates a copy so original array is not modified.
 
@@ -220,14 +206,12 @@ let sortedEmployees = [...employees].sort(function(a, b) {
 
 });
 
-console.log("========== SORTED BY SALARY ==========");
+console.log("SORTED BY SALARY");
 
 console.log(sortedEmployees);
 
 
-// =====================================================
 // 8. ARRAY MANIPULATION
-// =====================================================
 
 // Add employee using push()
 
@@ -310,9 +294,7 @@ addEmployeeAtBeginning(newEmployee2);
 deleteFirstEmployee();
 
 
-// =====================================================
 // 9. OBJECT DESTRUCTURING
-// =====================================================
 
 let firstEmployee = employees[0];
 
@@ -322,16 +304,14 @@ let {
     salary: employeeSalary
 } = firstEmployee;
 
-console.log("========== OBJECT DESTRUCTURING ==========");
+console.log("OBJECT DESTRUCTURING");
 
 console.log("Name:", employeeName);
 console.log("Department:", employeeDepartment);
 console.log("Salary:", employeeSalary);
 
 
-// =====================================================
 // ARRAY DESTRUCTURING
-// =====================================================
 
 let [
     firstSkill,
@@ -339,27 +319,23 @@ let [
     thirdSkill
 ] = firstEmployee.skills;
 
-console.log("========== ARRAY DESTRUCTURING ==========");
+console.log("ARRAY DESTRUCTURING");
 
 console.log("First Skill:", firstSkill);
 console.log("Second Skill:", secondSkill);
 console.log("Third Skill:", thirdSkill);
 
 
-// =====================================================
 // 10. SPREAD OPERATOR
-// =====================================================
 
 let newEmployeeArray = [...employees];
 
-console.log("========== SPREAD OPERATOR ==========");
+console.log("SPREAD OPERATOR");
 
 console.log(newEmployeeArray);
 
 
-// =====================================================
 // 11. REST OPERATOR
-// =====================================================
 
 function createEmployeeSkills(name, ...skills) {
 
@@ -378,9 +354,7 @@ createEmployeeSkills(
 );
 
 
-// =====================================================
 // 12. SEPARATE FUNCTIONS
-// =====================================================
 
 // ADD EMPLOYEE
 
@@ -477,9 +451,7 @@ function showEmployees() {
 }
 
 
-// =====================================================
 // 13. SALARY CATEGORY
-// =====================================================
 
 function salaryCategory(salary) {
 
@@ -500,7 +472,7 @@ function salaryCategory(salary) {
 }
 
 
-console.log("========== SALARY CATEGORIES ==========");
+console.log("SALARY CATEGORIES");
 
 employees.forEach(function(employee) {
 
@@ -513,11 +485,9 @@ employees.forEach(function(employee) {
 });
 
 
-// =====================================================
 // 14. DATE
-// =====================================================
 
-console.log("========== JOINING DATE ==========");
+console.log("JOINING DATE");
 
 employees.forEach(function(employee) {
 
@@ -545,9 +515,7 @@ employees.forEach(function(employee) {
 // December = 11
 
 
-// =====================================================
 // 15. USER INPUT - SEARCH EMPLOYEE
-// =====================================================
 
 let searchId = Number(
     prompt("Enter Employee ID to search:")
@@ -561,7 +529,7 @@ let searchedEmployee = employees.find(function(employee) {
 
 if (searchedEmployee) {
 
-    console.log("========== SEARCH RESULT ==========");
+    console.log("SEARCH RESULT");
 
     console.log("ID:", searchedEmployee.id);
     console.log("Name:", searchedEmployee.name);
@@ -576,10 +544,7 @@ if (searchedEmployee) {
 
 }
 
-
-// =====================================================
 // BONUS - MENU DRIVEN EMPLOYEE MANAGEMENT SYSTEM
-// =====================================================
 
 function employeeMenu() {
 
@@ -602,10 +567,8 @@ function employeeMenu() {
 
         switch (choice) {
 
-            // -----------------------------------------
             // 1. DISPLAY
-            // -----------------------------------------
-
+            
             case "1":
 
                 showEmployees();
@@ -613,10 +576,8 @@ function employeeMenu() {
                 break;
 
 
-            // -----------------------------------------
             // 2. ADD
-            // -----------------------------------------
-
+            
             case "2":
 
                 let id = Number(
@@ -666,10 +627,8 @@ function employeeMenu() {
                 break;
 
 
-            // -----------------------------------------
             // 3. SEARCH
-            // -----------------------------------------
-
+            
             case "3":
 
                 let searchEmployeeId = Number(
@@ -681,10 +640,8 @@ function employeeMenu() {
                 break;
 
 
-            // -----------------------------------------
             // 4. FILTER HIGH SALARY
-            // -----------------------------------------
-
+            
             case "4":
 
                 let highSalaryEmployees =
@@ -699,9 +656,7 @@ function employeeMenu() {
                 break;
 
 
-            // -----------------------------------------
             // 5. TOTAL SALARY
-            // -----------------------------------------
 
             case "5":
 
@@ -712,10 +667,7 @@ function employeeMenu() {
 
                 break;
 
-
-            // -----------------------------------------
             // 6. SORT BY SALARY
-            // -----------------------------------------
 
             case "6":
 
@@ -731,10 +683,7 @@ function employeeMenu() {
 
                 break;
 
-
-            // -----------------------------------------
             // 7. DELETE
-            // -----------------------------------------
 
             case "7":
 
@@ -747,10 +696,8 @@ function employeeMenu() {
                 break;
 
 
-            // -----------------------------------------
             // 8. EXIT
-            // -----------------------------------------
-
+            
             case "8":
 
                 console.log(
@@ -760,9 +707,8 @@ function employeeMenu() {
                 break;
 
 
-            // -----------------------------------------
             // INVALID CHOICE
-            // -----------------------------------------
+            
 
             default:
 
