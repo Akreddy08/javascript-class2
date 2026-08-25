@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple ToDo List</title>
+</head>
+<body>
+
+    <h2>ToDo List</h2>
+
+    <input type="text" id="taskInput" placeholder="Enter task">
+    <button id="addButton">Add</button>
+
+    <p id="message"></p>
+
+    <ol id="taskList"></ol>
+
+    <script>
+
+        let taskInput = document.querySelector("#taskInput");
+        let addButton = document.querySelector("#addButton");
+        let taskList = document.querySelector("#taskList");
+        let message = document.querySelector("#message");
+
+        addButton.addEventListener("click", ()=> {
+
+            if (taskInput.value === "") {
+
+                message.innerText = "Enter a task";
+
+            } else {
+
+                let li = document.createElement("li");
+
+                li.innerText = taskInput.value;
+
+                let deleteButton = document.createElement("button");
+
+                deleteButton.innerText = "Delete";
+
+                li.append(deleteButton);
+
+                taskList.append(li);
+
+                deleteButton.addEventListener("click", function () {
+
+                    li.remove();
+
+                });
+
+                taskInput.value = "";
+
+                message.innerText = "";
+            }
+
+        });
+
+    </script>
+
+</body>
+</html>
