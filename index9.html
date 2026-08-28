@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fake Store</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .controls {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        input {
+            padding: 10px;
+            width: 250px;
+        }
+
+        button {
+            padding: 10px 15px;
+            margin: 5px;
+            cursor: pointer;
+        }
+
+        .apicard {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .card {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px #ccc;
+        }
+
+        .card img {
+            width: 100%;
+            height: 200px;
+            object-fit: contain;
+        }
+
+        .card h3 {
+            font-size: 18px;
+        }
+
+        .category {
+            color: gray;
+        }
+
+        .price {
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .description {
+            font-size: 14px;
+        }
+
+        @media (max-width: 900px) {
+            .apicard {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 600px) {
+            .apicard {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>🛒 FAKE STORE</h1>
+
+    <div class="controls">
+
+        <input
+            type="text"
+            id="searchInput"
+            placeholder="Search product"
+        >
+
+        <button id="searchButton">Search</button>
+
+        <br>
+
+        <button class="categoryButton" data-category="all">
+            All
+        </button>
+
+        <button class="categoryButton" data-category="men's clothing">
+            Men's Clothing
+        </button>
+
+        <button class="categoryButton" data-category="women's clothing">
+            Women's Clothing
+        </button>
+
+        <button class="categoryButton" data-category="jewelery">
+            Jewellery
+        </button>
+
+        <button class="categoryButton" data-category="electronics">
+            Electronics
+        </button>
+
+        <br>
+
+        <button id="lowToHigh">
+            Low → High
+        </button>
+
+        <button id="highToLow">
+            High → Low
+        </button>
+
+    </div>
+
+    <h3 id="productCount"></h3>
+
+    <div class="apicard"></div>
+
+
+    <script>
+
+        let apicard = document.querySelector(".apicard");
+        let productCount = document.querySelector("#productCount");
+
+        let searchInput = document.querySelector("#searchInput");
+        let searchButton = document.querySelector("#searchButton");
+
+        let lowToHigh = document.querySelector("#lowToHigh");
+        let highToLow = document.querySelector("#highToLow");
+
+        let categoryButtons =
+            document.querySelectorAll(".categoryButton");
+
+        let jsData = [];
+
+
+        // FETCH API
+
+        fetch("https://fakestoreapi.com/products")
+            .then(function(response) {
+
+                return response.json();
+
+            })
+            .then(function(data) {
+
+                jsData = data;
+
+                displayProducts(jsData);
+
+            });
+
+
+        // DISPLAY PRODUCTS
+
+        function displayProducts(products) {
+
+            apicard.innerText = "";
+
+            productCount.innerText =
+                "Total Products: " + products.length;
+
+
+            products.forEach(function(product) {
+
+                let card = document.createElement("div");
+
+                card.classList.add("card");
+
+
+                // Product Image
+
+                let image = document.createElement("img");
+
+                image.src = product.image;
+
+                card.append(image);
+
+
+                // Product Title
+
+                let title = document.createElement("h3");
+
+                title.innerText = product.title;
+
+                card.append(title);
+
+
+                // Category
+
+                let category = document.createElement("p");
+
+                category.classList.add("category");
+
+                category.innerText =
+                    "Category: " + product.category;
+
+                card.append(category);
+
+
+                // Description
+
+                let description = document.createElement("p");
+
+                description.classList.add("description");
+
+                description.innerText =
+                    product.description;
+
+                card.append(description);
+
+
+                // Price
+
+                let price = document.createElement("p");
+
+                price.classList.add("price");
+
+                price.innerText =
+                    "$" + product.price;
+
+                card.append(price);
+
+
+                // View Product Button
+
+                let viewButton =
+                    document.createElement("button");
+
+                viewButton.innerText =
+                    "View Product";
+
+                card.append(viewButton);
+
+
+                // Add to Cart Button
+
+                let cartButton =
+                    document.createElement("button");
+
+                cartButton.innerText =
+                    "Add to Cart";
+
+                card.append(cartButton);
+
+
+                // Add card to .apicard
+
+                apicard.append(card);
+
+            });
+
+        }
+
+
+        // TASK 2 - SHOW ONLY 5 PRODUCTS
+
+        // Example:
+        // displayProducts(jsData.slice(0, 5));
+
+
+        // TASK 3 - PRICE FILTER
+
+        function priceFilter() {
+
+            let result = jsData.filter(function(product) {
+
+                return product.price > 50;
+
+            });
+
+            displayProducts(result);
+        }
+
+
+        // TASK 4 - CATEGORY FILTER
+
+        function categoryFilter(category) {
+
+            let result = jsData.filter(function(product) {
+
+                return product.category === category;
+
+            });
+
+            displayProducts(result);
+        }
+
+
+        // TASK 6 - SEARCH PRODUCT
+
+        searchButton.addEventListener(
+            "click",
+            function() {
+
+                let searchText =
+                    searchInput.value.toLowerCase();
+
+                let result = jsData.filter(
+                    function(product) {
+
+                        return product.title
+                            .toLowerCase()
+                            .includes(searchText);
+
+                    }
+                );
+
+                displayProducts(result);
+
+            }
+        );
+
+
+        // TASK 7 - LOW TO HIGH
+
+        lowToHigh.addEventListener(
+            "click",
+            function() {
+
+                let sortedProducts = [...jsData];
+
+                sortedProducts.sort(
+                    function(a, b) {
+
+                        return a.price - b.price;
+
+                    }
+                );
+
+                displayProducts(sortedProducts);
+
+            }
+        );
+
+
+        // TASK 7 - HIGH TO LOW
+
+        highToLow.addEventListener(
+            "click",
+            function() {
+
+                let sortedProducts = [...jsData];
+
+                sortedProducts.sort(
+                    function(a, b) {
+
+                        return b.price - a.price;
+
+                    }
+                );
+
+                displayProducts(sortedProducts);
+
+            }
+        );
+
+
+        // TASK 8 - CATEGORY BUTTONS
+
+        categoryButtons.forEach(
+            function(button) {
+
+                button.addEventListener(
+                    "click",
+                    function() {
+
+                        let category =
+                            button.dataset.category;
+
+                        if (category === "all") {
+
+                            displayProducts(jsData);
+
+                        } else {
+
+                            let result =
+                                jsData.filter(
+                                    function(product) {
+
+                                        return product.category === category;
+
+                                    }
+                                );
+
+                            displayProducts(result);
+                        }
+
+                    }
+                );
+
+            }
+        );
+
+    </script>
+
+</body>
+</html>
